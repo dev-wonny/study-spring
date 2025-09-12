@@ -109,8 +109,29 @@ Dependency inversion principle
   1) 정적인 클래스 의존 관계
   2) 실행 시점에 결정되는 동적인 객체(인스턴스) 의존 관계
 
-
+### 정적인 클래스 의존관계
 ![alt text](image.png)
+- 클래스가 사용하는 import 코드만 보고 의존관계를 쉽게 판단할 수 있다. 정적인 의존관계는 애플리케이션을 실행하지 않아도 분석할 수 있다.
+`OrderServiceImpl` 은 `MemberRepository` , `DiscountPolicy` 에 의존한다는 것을 알 수 있다.
+그런데 이러한 클래스 의존관계 만으로는 실제 어떤 객체가 `OrderServiceImpl` 에 주입 될지 알 수 없다.
+
+### 동적인 객체 인스턴스 의존 관계
+애플리케이션 실행 시점에 실제 생성된 객체 인스턴스의 참조가 연결된 의존 관계다.
+![alt text](image-3.png)
+
+
+## IoC Container == DI Container == Assembler == Object Factory
+- AppConfig 처럼 객체를 생성하고 관리하면서 의존관계를 연결해 주는 것을 IoC 컨테이너 또는 **DI 컨테이너**라 한다.
+- 의존관계 주입에 초점을 맞추어 최근에는 주로 DI 컨테이너라 한다.
+- 또는 어샘블러, 오브젝트 팩토리 등으로 불리기도 한다.
+
+### AppConfig 리팩터링
+- 구성 정보에서 역할과 구현을 명확하게 분리
+- 역할이 잘 드러남
+- 중복 제거
+
 ![변경 전](image-1.png)
 ![변경 후](image-2.png)
-- 더 이상 직접 생성하지 않는다
+
+- 더 이상 클라이언트 코드는 구체에 의존하지 않는다. 그저 AppConfig가 주입을 해주고 있다.
+- DI Container
