@@ -131,6 +131,25 @@ Single Responsibility Principle(SRP)을 제외한 나머지 SOLID 원칙들(OCP,
 - abstract class BaseEntity → id, createdAt 같은 공통 필드 및 로직 제공
 - interface Repository → CRUD 메서드 시그니처 정의, 구현은 다른 곳에서 담당
 
+### Abstract Class가 Interface의 "일부분"처럼 보이는 이유
+- interface는 “무조건 지켜야 하는 계약”
+-  abstract class는 “기본 구현 + 선택적 확장”
+
+#### 비슷하다고 기억하는 이유는?
+- Java 8 이후 interface에 default method와 static method가 추가되면서,
+- interface도 일부 구현을 가질 수 있게 되었습니다.
+- 이로 인해 두 개념이 비슷하게 느껴지게 된 것입니다.
+
+- 인터페이스의 역할은 *“무조건 구현해야 하는 규칙을 정의”*하는 것이고,
+- 추상 클래스도 "일부 추상 메서드를 정의"하기 때문에 인터페이스와 비슷한 기능을 합니다.
+
+#### 차이점
+- 인터페이스는 다중 구현 가능
+- 추상 클래스는 상속은 단일만 가능
+
+- 인터페이스는 상태(state)를 가질 수 없지만
+- 추상 클래스는 **공통 상태(필드)**를 가질 수 있음
+
 ---
 ## IoC, DI, 그리고 컨테이너
 ### 제어의 역전 IoC(Inversion of Control)
