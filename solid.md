@@ -84,9 +84,52 @@ Dependency inversion principle
 
 ---
 ## 팀원과 대화에서 얻은 insight
-- single responsibility principle 를 제외한 나머지 규칙은 interface 내용이다
-- interface를 설계하는 것이 개발을 잘하게 되는 것이 아닐까?
-- abstract class는 요즘 사용을 덜하는가?
+1. single responsibility principle 를 제외한 나머지 규칙은 interface 내용이다
+2. interface를 설계하는 것이 개발을 잘하게 되는 것이 아닐까?
+3. abstract class는 요즘 사용을 덜하는가?
+
+### 1. Interface 중심 설계와 개발 역량
+Single Responsibility Principle(SRP)을 제외한 나머지 SOLID 원칙들(OCP, LSP, ISP, DIP)은 대부분 interface와의 관계를 강조합니다.
+즉, interface가 잘 설계되어야 자연스럽게 OCP(개방-폐쇄 원칙), ISP(인터페이스 분리 원칙), DIP(의존 역전 원칙)을 지킬 수 있게 됩니다.
+
+#### 예시
+- OCP: 기존 코드를 수정하지 않고도 기능 확장 가능 → interface 기반으로 확장 클래스 추가
+- ISP: 하나의 거대한 interface 대신 역할별로 세분화된 interface 제공
+- DIP: 고수준 모듈이 구체 클래스가 아니라 interface에 의존
+
+그래서 interface를 잘 설계하는 것은 단순히 문법 문제가 아니라, 변화에 강한 시스템을 만드는 핵심 역량이라고 할 수 있습니다.
+한마디로, “클래스 구현보다 interface 설계가 훨씬 중요하다”
+
+### 2. 변화에 유연하고 확장 가능한 아키텍처를 설계
+- 개발 실력을 키우려면 단순히 코드를 잘 짜는 것보다 interface 설계 능력을 우선 키우는 것이 중요
+- SOLID 원칙 중 **SRP + 인터페이스 관련 3원칙(ISP, DIP, OCP)**를 깊게 이해해야 합니다
+- abstract class는 요즘 줄어드는 추세지만, 여전히 상속 기반의 공통 로직 제공이나 템플릿 메서드 패턴 같은 곳에서 중요한 역할을 합니다.
+
+### 3. Abstract Class와 Interface의 사용 경향
+- interface → 시스템의 방향과 확장성을 결정하는 설계의 뼈대
+- abstract class → 공통 구현을 묶는 강한 결합의 기반
+
+- 최근의 개발 트렌드에서 abstract class는 사용 빈도가 줄어드는 편입니다. 그 이유는 다음과 같습니다.
+
+| 구분        | Abstract Class        | Interface                    |
+| --------- | --------------------- | ---------------------------- |
+| **다중 상속** | 불가능 (extends는 1개만 가능) | 가능 (implements 여러 개 가능)      |
+| **기본 구현** | 일부 메서드 구현 가능          | Java 8 이후 default 메서드 제공 가능  |
+| **역할**    | "IS-A" 관계, 공통 기능 제공   | "CAN-DO" 관계, 계약(Contract) 정의 |
+| **확장성**   | 확장시 제약 많음             | 확장 유연성이 높음                   |
+
+#### 최근 트렌드:
+- 과거에는 abstract class가 공통 코드 재사용 목적으로 많이 쓰였지만,
+- 지금은 default method를 가진 interface가 등장하면서 그 자리를 많이 대체하고 있습니다.
+
+- 특히 Spring, NestJS 같은 프레임워크는 대부분 interface를 중심으로 구조를 잡고,
+- 실제 구현체는 별도로 만들어 주입(DI)하는 패턴을 선호합니다.
+
+- 다만, 상태(state)나 강한 공통 동작이 필요한 경우에는 여전히 abstract class를 사용합니다.
+
+#### 예시
+- abstract class BaseEntity → id, createdAt 같은 공통 필드 및 로직 제공
+- interface Repository → CRUD 메서드 시그니처 정의, 구현은 다른 곳에서 담당
 
 ---
 ## IoC, DI, 그리고 컨테이너
